@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page d'accueil{% endblock %}
+
+{% block body %}
+<div class="container my-4">
+    <!-- Bienvenue -->
+    {{ include('_banner/_banner.html.twig') }}
+
+
+  <!-- Section principale avec trois actions importantes -->
+<div class="row g-4 bg-white pb-4 rounded-2 shadow-sm">
+    <!-- Validation des codes promo -->
+    <div class="col-12 col-md-4">
+        <a href="{{ path('validate_promo') }}" class="btn btn-primary btn-block d-flex flex-column align-items-center justify-content-center py-5 shadow-sm">
+            <i class="fas fa-tags fa-4x mb-3"></i>
+            <h4 class="fw-bold text-white mb-2">Valider un code promo</h4>
+            <small class="text-white-50">Profitez de vos réductions en validant votre code promo</small>
+        </a>
+    </div>
+
+    <!-- Nos établissements partenaires -->
+    <div class="col-12 col-md-4">
+        <a href="{{ path('app_type_etablissement_index') }}" class="btn btn-dark btn-block d-flex flex-column align-items-center justify-content-center py-5 shadow-sm">
+            <i class="fas fa-building fa-4x mb-3"></i>
+            <h4 class="fw-bold text-white mb-2">Nos établissements partenaires</h4>
+            <small class="text-white-50">Découvrez nos établissements pour une expérience inédite</small>
+        </a>
+    </div>
+
+    <!-- Déconnexion -->
+    <div class="col-12 col-md-4">
+        <a href="{{ path('app_logout') }}" class="btn btn-danger btn-block d-flex flex-column align-items-center justify-content-center py-5 shadow-sm">
+            <i class="fas fa-sign-out-alt fa-4x mb-3"></i>
+            <h4 class="fw-bold text-white mb-2">Se déconnecter</h4>
+            <small class="text-white-50">Quittez votre session en toute sécurité</small>
+        </a>
+    </div>
+</div>
+
+
+    {% if is_granted('ROLE_ADMIN') %}
+    <!-- Section administrateur -->
+    <div class="mt-5">
+        <h3 class="text-center fw-bold">Espace Administrateur</h3>
+        <p class="text-center text-muted">Gérez vos établissements, codes promos et bien plus avec efficacité.</p>
+
+        <div class="row g-4">
+            <!-- Gestion des établissements -->
+            <div class="col-12 col-md-4">
+                <a href="{{ path('app_etablissement_index') }}" class="btn btn-outline-primary btn-block d-flex flex-column align-items-center justify-content-center py-4 shadow-sm">
+                    <i class="fas fa-cogs fa-3x mb-3"></i>
+                    <h5 class="fw-bold mb-2">Gestion des établissements</h5>
+                    <small class="text-muted">Ajoutez, modifiez ou supprimez des établissements facilement</small>
+                </a>
+            </div>
+
+            <!-- Gestion des codes promos -->
+            <div class="col-12 col-md-4">
+                <a href="{{ path('validate_promo') }}" class="btn btn-outline-success btn-block d-flex flex-column align-items-center justify-content-center py-4 shadow-sm">
+                    <i class="fas fa-tags fa-3x mb-3"></i>
+                    <h5 class="fw-bold mb-2">Gestion des codes promos</h5>
+                    <small class="text-muted">Créez et gérez vos codes promo en toute simplicité</small>
+                </a>
+            </div>
+
+            <!-- Statistiques -->
+            <div class="col-12 col-md-4">
+                <a href="#" class="btn btn-outline-warning btn-block d-flex flex-column align-items-center justify-content-center py-4 shadow-sm">
+                    <i class="fas fa-chart-line fa-3x mb-3"></i>
+                    <h5 class="fw-bold mb-2">Statistiques</h5>
+                    <small class="text-muted">Consultez les performances de vos établissements</small>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

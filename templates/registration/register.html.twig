@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+<section class="py-5" style="background-color: #ffffff;">
+  <div class="container-fluid h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+      {% endfor %}
+      <div class="col col-xl-10">
+        <div class="card" style="border-radius: 1rem;">
+          <div class="row g-0">
+            <!-- Section image -->
+            <div class="col-md-6 col-lg-5 d-flex align-items-center justify-content-center mt-5">
+              <img class="rounded" src="{{ asset('/img/passyass.jpg') }}"
+                alt="register form" class="img-fluid" style="max-width: 80%; border-radius: 1rem 0 0 1rem;" />
+            </div>
+            <!-- Section formulaire -->
+            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+              <div class="card-body p-4 p-lg-5 text-black">
+                <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Créer un compte</h5>
+
+                {{ form_start(registrationForm) }}
+                
+                <div class="form-floating mb-3">
+                  {{ form_widget(registrationForm.nomComplet, {'attr': {'class': 'form-control', 'placeholder': 'Votre nom complet'}}) }}
+                  {{ form_label(registrationForm.nomComplet, 'Votre nom complet', {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(registrationForm.nomComplet) }}
+                </div>
+
+  {{ form_widget(registrationForm.sex, {'attr': {'class': 'form-control'}}) }}
+  {{ form_label(registrationForm.sex, 'Sexe', {'label_attr': {'class': 'form-label'}}) }}
+  {{ form_errors(registrationForm.sex) }}
+
+
+
+                <div class="form-floating mb-3">
+                  {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control', 'placeholder': 'Votre adresse email'}}) }}
+                  {{ form_label(registrationForm.email, 'Votre adresse email', {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(registrationForm.email) }}
+                </div>
+
+                <div class="form-floating mb-3">
+                  {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control', 'placeholder': 'Saisissez un Mot de passe'}}) }}
+                  {{ form_label(registrationForm.plainPassword, 'Saisissez un Mot de passe', {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(registrationForm.plainPassword) }}
+                </div>
+
+                <div class="form-check mb-3 ps-0">
+                  {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+                  {{ form_label(registrationForm.agreeTerms, null, {'label_attr': {'class': 'form-check-label'}}) }}
+                  {{ form_errors(registrationForm.agreeTerms) }}
+                </div>
+
+                <div class="pt-1 mb-4">
+                  <button class="btn btn-primary btn-lg btn-block w-100" type="submit">S'inscrire</button>
+                </div>
+
+                <p class="mb-5 pb-lg-2" style="color: #393f81;">Vous avez déjà un compte ? 
+                  <a href="{{ path('app_login') }}" style="color: #393f81;">Connectez-vous ici</a>
+                </p>
+                <a href="#!" class="small text-muted">Conditions d'utilisation</a>
+                <a href="#!" class="small text-muted">Politique de confidentialité</a>
+                {{ form_end(registrationForm) }}
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

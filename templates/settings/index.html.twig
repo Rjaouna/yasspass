@@ -1,0 +1,14 @@
+{# templates/settings/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SettingsController!{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <h1>Change Your Theme</h1>
+    {{ form_start(form) }}
+        {{ form_row(form.theme) }}
+        <button class="btn btn-primary" type="submit">Save</button>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

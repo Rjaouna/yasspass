@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un établissement{% endblock %}
+
+{% block body %}
+<section class="py-5" style="background-color: #ffffff;">
+  <div class="container-fluid h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+          {{ message }}
+        </div>
+      {% endfor %}
+      <div class="col col-xl-10">
+        <div class="card" style="border-radius: 1rem;">
+          <div class="row g-0">
+            <!-- Section image -->
+            <div class="col-md-6 col-lg-5 d-flex align-items-center justify-content-center mt-5">
+              <i class="fas fa-utensils fa-5x"></i>
+
+            </div>
+            <!-- Section formulaire -->
+            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+              <div class="card-body p-4 p-lg-5 text-black">
+                {{ form_start(form) }}
+
+                <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Créer un nouvel établissement</h5>
+
+                {{ form_row(form.imageFile, {'label': 'Logo ou façade du restaurant'}) }}
+
+                <div class="form-floating mb-3">
+                  {{ form_widget(form.typeEtablissement, {'attr': {'placeholder': ''}}) }}
+                  <label for="{{ form.typeEtablissement.vars.id }}">Type de l'établissement</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                  {{ form_widget(form.name, {'attr': {'placeholder': 'Nom de l\'établissement'}}) }}
+                  <label for="{{ form.name.vars.id }}">Nom de l'établissement</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                  {{ form_widget(form.address, {'attr': {'placeholder': 'Adresse de l\'établissement'}}) }}
+                  <label for="{{ form.address.vars.id }}">Adresse</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                  {{ form_widget(form.phone, {'attr': {'placeholder': 'Numéro de téléphone'}}) }}
+                  <label for="{{ form.phone.vars.id }}">Téléphone</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                  {{ form_widget(form.email, {'attr': {'placeholder': 'Adresse email'}}) }}
+                  <label for="{{ form.email.vars.id }}">Email</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                  {{ form_widget(form.description, {'attr': {'placeholder': 'Description de l\'établissement'}}) }}
+                  <label for="{{ form.description.vars.id }}">Description</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                  {{ form_widget(form.promo_code, {'attr': {'placeholder': 'Code promotionnel'}}) }}
+                  <label for="{{ form.promo_code.vars.id }}">Code promo</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                  {{ form_widget(form.type, {'attr': {'placeholder': 'Type d\'établissement'}}) }}
+                  <label for="{{ form.type.vars.id }}">Type</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                  {{ form_widget(form.promo, {'attr': {'placeholder': 'Promo'}}) }}
+                  <label for="{{ form.promo.vars.id }}">Promo</label>
+                </div>
+
+                <div class="pt-1 mb-4">
+                  <button class="btn btn-primary btn-lg btn-block w-100" type="submit">Enregistrer</button>
+                </div>
+
+                {{ form_end(form) }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

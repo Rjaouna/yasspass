@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Valider le code promo{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+    <!-- Formulaire pour valider le code promo -->
+    <div class="card shadow border-0 rounded-3 mb-4">
+        <div class="card-header bg-dark text-white text-center py-4 border-0">
+            <h3>Valider votre code promo</h3>
+            <small>Entrez et validez votre code, l'établissement sera affiché</small>
+        </div>
+        <div class="card-body">
+            <form id="promoForm" action="{{ path('validate_promo') }}" method="POST">
+                <div class="form-floating mb-4">
+                    <input type="text" id="promoCode" name="promoCode" class="form-control" placeholder="Code promo" required>
+                    <label for="promoCode">Entrez le code promo :</label>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg w-100">Valider le code promo</button>
+            </form>
+
+            <!-- Message de validation ou d'erreur -->
+            <div id="result" class="mt-3">
+              
+                 <!-- Informations de l'établissement -->
+    {% if etablissement %}
+    <div class="card shadow border rounded-3">
+        <div class="card-header text-center  py-2 bg-light">
+            <!-- Logo de l'établissement -->
+            {% if etablissement.imageName %}
+                <img src="{{ asset('uploads/logos/' ~ etablissement.imageName) }}" alt="Logo" class="img-fluid rounded-circle" style="width: 100px; height: 100px; object-fit: cover;">
+            {% else %}
+                <div class="d-flex justify-content-center align-items-center bg-secondary text-white rounded-circle" style="width: 150px; height: 150px;">
+                    <span>Aucun logo</span>
+                </div>
+            {% endif %}
+        </div>
+
+<div class="card-body">
+    <div class="mb-4 text-center">
+        <h4 class="card-title text-uppercase fw-bold">{{ etablissement.name }}</h4>
+    </div>
+
+    <div class="mb-3 d-flex align-items-center">
+        <div class="icon-box bg-light rounded-circle p-3 text-dark me-3">
+            <i class="fas fa-map-marker-alt fa-lg"></i>
+        </div>
+        <div>
+            <h6 class="text-dark fw-bold mb-1">Adresse</h6>
+            <p class="text-secondary mb-0">{{ etablissement.address }}</p>
+        </div>
+    </div>
+
+    <div class="mb-3 d-flex align-items-center">
+        <div class="icon-box bg-light rounded-circle p-3 text-dark me-3">
+            <i class="fas fa-phone fa-lg"></i>
+        </div>
+        <div>
+            <h6 class="text-dark fw-bold mb-1">Téléphone</h6>
+            <p class="text-secondary mb-0">{{ etablissement.phone }}</p>
+        </div>
+    </div>
+
+    <div class="mb-3 d-flex align-items-center">
+        <div class="icon-box bg-light rounded-circle p-3 text-dark me-3">
+            <i class="fas fa-envelope fa-lg"></i>
+        </div>
+        <div>
+            <h6 class="text-dark fw-bold mb-1">Email</h6>
+            <p class="text-secondary mb-0">{{ etablissement.email }}</p>
+        </div>
+        
+    </div>
+    {% if etablissement in app.user.etablissement %}
+                <button class="btn btn-danger btn-lg w-100 fw-bold" disabled>
+                   Pass déjà utillisé
+                </button>
+            {% else %}
+                <a class="btn btn-success btn-lg w-100 fw-bold" href="{{ path('app_promo_usage', {'id': app.user.id, 'etablissement': etablissement.id}) }}">
+                    Valider mon code
+                </a>
+            {% endif %}
+</div>
+
+
+
+
+        
+    {% endif %}
+</div>
+            </div>
+        </div>
+    </div>
+
+   
+{% endblock %}

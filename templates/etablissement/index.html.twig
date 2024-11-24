@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des établissements{% endblock %}
+
+{% block body %}
+    <div class="container-fluid mt-5">
+
+        <!-- Carte des établissements -->
+        <div class="row">
+            {% for etablissement in etablissements %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-lg border-light" style="background-color: #ffffff; border-radius: 15px;">
+                        <div class="card-body d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <!-- Nom de l'établissement -->
+                                <h5 class="card-title text-primary">{{ etablissement.name }}</h5>
+                                
+                                <!-- Logo de l'établissement -->
+                                {% if etablissement.imageName %}
+                                    <img class="rounded-circle border p-2" src="{{ asset('uploads/logos/' ~ etablissement.imageName) }}" alt="Logo" style="height: 60px; ">
+                                {% else %}
+                                    <span class="text-muted">Pas de logo</span>
+                                {% endif %}
+                            </div>
+                            
+                            <!-- Description -->
+                            <p>{{ etablissement.description|split(' ')|slice(0, 10)|join(' ') ~ '...' }}</p>
+
+                            <!-- Mise en valeur de la promotion -->
+                            <div class="mb-3 p-4 rounded" style="border-left: 8px solid #ff7f50; background-color: #fff3e0; transition: all 0.3s ease;">
+                                <h6 class="text-danger font-weight-bold text-uppercase">Promo Spéciale !</h6>
+                                <p class="text-success" style="font-size: 1.3rem; font-weight: bold; color: #ff7f50;">{{ etablissement.promo }}</p>
+                            </div>
+
+                            <!-- Code promo -->
+                            <div class="my-2">
+                                <p>Pour bénéficier de cette réduction, copiez ce code : 
+                                    <span class="btn btn-outline-white btn-sm mb-2 text-primary" onclick="copyPromoCode('{{ etablissement.promoCode }}')">
+                                        {{ etablissement.promoCode }} <i class="fas fa-copy ml-2"></i> 
+                                    </span>
+                                </p>
+                                <p>Rendez-vous sur la page <a href="{{ path('validate_promo') }}" class="text-primary">Check code promo</a> et présentez-le à la caisse.</p>
+                            </div>
+
+                            <!-- Icônes de contact -->
+                            <div class="d-flex justify-content-between">
+                                <a href="mailto:{{ etablissement.email }}" class="shadow rounded btn btn-outline-white btn-sm my-2 flex-grow-1 d-flex justify-content-center align-items-center mx-2 text-primary"> 
+    <i class="fas fa-envelope"></i>
+</a>
+                                <a href="tel:{{ etablissement.phone }}" class="shadow rounded btn btn-outline-white btn-sm my-2 flex-grow-1 d-flex justify-content-center align-items-center mx-2 text-primary">
+    <i class="fas fa-phone"></i>
+</a>
+<a href="https://www.google.com/maps?q={{ etablissement.address|url_encode }}" class="shadow rounded btn btn-outline-white btn-sm my-2 flex-grow-1 d-flex justify-content-center align-items-center mx-2 text-primary" target="_blank">
+    <i class="fas fa-map-marker-alt"></i>
+</a>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12 text-center text-muted">
+                    <p>Aucun établissement trouvé.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Script pour copier le code promo -->
+    <script>
+        function copyPromoCode(promoCode) {
+            const tempInput = document.createElement('input');
+            tempInput.value = promoCode;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            alert('Code promo copié : ' + promoCode);
+        }
+    </script>
+{% endblock %}

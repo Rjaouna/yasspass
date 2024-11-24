@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Types d'Établissements{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+    <div class="d-flex justify-content-between mb-4">
+        <!-- "new" à gauche -->
+        <div class="text-left">
+            <span class="badge bg-info text-white">New</span>
+        </div>
+
+        <!-- Nombre d'établissements à droite -->
+        <div class="text-right">
+            <span class="badge bg-primary text-white">{{ type_etablissements|length }} Établissements</span>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4 ">
+        {% for type_etablissement in type_etablissements %}
+            <div class="col">
+                <div class="card  border-light rounded-3 shadow">
+                    <div class="row g-0 align-items-center">
+                        <!-- Texte à gauche -->
+                        <div class="col-8">
+                            <div class="card-body">
+                                <h5 class="card-title text-uppercase text-dark">{{ type_etablissement.nom }}</h5>
+                                <p class="text-muted">Découvrez tous les {{ type_etablissement.nom }}s disponibles.</p>
+                            </div>
+                        </div>
+
+                        <!-- Image à droite -->
+                        <div class="col-4 text-center">
+                            {% if type_etablissement.imageName %}
+                                <img class="img-fluid rounded-circle" 
+                                     src="{{ asset('uploads/typeetablissement/' ~ type_etablissement.imageName) }}" 
+                                     alt="Logo {{ type_etablissement.nom }}" 
+                                     style="width: 100px; height: 100px; object-fit: cover;">
+                            {% else %}
+                                <div class="d-flex justify-content-center align-items-center" 
+                                     style="width: 100px; height: 100px; background-color: #f8f9fa; border-radius: 50%;">
+                                    <span class="text-muted">Pas de logo</span>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Bouton en bas -->
+                    <div class="card-footer bg-white border-top-0 text-center">
+                        <a href="{{ path('app_etablissement_by_type', {'type': type_etablissement.nom}) }}" class="btn btn-dark btn-sm w-100">
+                            Voir tous les {{ type_etablissement.nom }}s
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-warning text-center">
+                    Aucun type d'établissement trouvé.
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Style spécifique -->
+<style>
+    .card {
+        border: 1px solid #dee2e6;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px); /* Élève légèrement la carte */
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Légère ombre au survol */
+    }
+
+    .card-footer {
+        background-color: #ffffff; /* Fond clair pour le pied de carte */
+    }
+
+    
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+{% endblock %}

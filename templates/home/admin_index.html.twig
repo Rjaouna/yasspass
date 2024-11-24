@@ -1,0 +1,57 @@
+
+
+{# templates/homepage.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Page d'accueil{% endblock %}
+
+{% block body %}
+<!-- En-tête de présentation -->
+        <div class="text-center mb-5">
+            <h1 class="display-4 font-weight-bold">Bienvenue dans votre espace dédié</h1>
+            <p class="lead text-muted">
+                Gérez vos établissements, vos codes promos et bien plus encore avec simplicité et efficacité.
+            </p>
+        </div>
+
+        <!-- Section des fonctionnalités principales -->
+        <div class="row text-center mb-5">
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <i class="fas fa-building fa-3x text-primary mb-3"></i>
+                        <h5 class="card-title">Gestion des établissements</h5>
+                        <p class="card-text text-muted">
+                            Consultez la liste de vos établissements et gérez leurs informations en toute simplicité.
+                        </p>
+                        <a href="{{ path('app_etablissement_index') }}" class="btn btn-outline-primary">Voir les établissements</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <i class="fas fa-tags fa-3x text-success mb-3"></i>
+                        <h5 class="card-title">Gestion des codes promos</h5>
+                        <p class="card-text text-muted">
+                            Validez vos codes promos et suivez leur utilisation rapidement et efficacement.
+                        </p>
+                        <a href="{{ path('validate_promo') }}" class="btn btn-outline-success">Valider un code promo</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <i class="fas fa-chart-line fa-3x text-warning mb-3"></i>
+                        <h5 class="card-title">Statistiques et analyses</h5>
+                        <p class="card-text text-muted">
+                            Consultez les statistiques de vos établissements pour optimiser vos performances.
+                        </p>
+                        <a href="#" class="btn btn-outline-warning">Voir les statistiques</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
